@@ -26,7 +26,7 @@
         <kafka.clients.version>2.1.0</kafka.clients.version>
         <damsel.version>1.278-3abdcb4</damsel.version>
         <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
-        <dockerfile.registry>dr.rbkmoney.com</dockerfile.registry>
+        <dockerfile.base.service.tag>2a8b44ac628c1bdb729abd04ed7a2a54676e574b</dockerfile.base.service.tag>
     </properties>
 
     <dependencyManagement>

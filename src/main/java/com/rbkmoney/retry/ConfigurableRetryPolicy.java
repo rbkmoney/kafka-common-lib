@@ -10,18 +10,18 @@ import org.springframework.util.ClassUtils;
 import java.util.Map;
 
 @Getter
-public class InfiniteRetryPolicy implements RetryPolicy {
+public class ConfigurableRetryPolicy implements RetryPolicy {
 
     private final int maxAttempts;
 
     private final BinaryExceptionClassifier retryableClassifier;
 
-    public InfiniteRetryPolicy(int maxAttempts, Map<Class<? extends Throwable>, Boolean> retryableExceptions) {
+    public ConfigurableRetryPolicy(int maxAttempts, Map<Class<? extends Throwable>, Boolean> retryableExceptions) {
         this(maxAttempts, retryableExceptions, false, false);
     }
 
-    public InfiniteRetryPolicy(int maxAttempts, Map<Class<? extends Throwable>, Boolean> retryableExceptions,
-                               boolean traverseCauses, boolean defaultValue) {
+    public ConfigurableRetryPolicy(int maxAttempts, Map<Class<? extends Throwable>, Boolean> retryableExceptions,
+                                   boolean traverseCauses, boolean defaultValue) {
         this.maxAttempts = maxAttempts;
         this.retryableClassifier = new BinaryExceptionClassifier(retryableExceptions, defaultValue);
         this.retryableClassifier.setTraverseCauses(traverseCauses);

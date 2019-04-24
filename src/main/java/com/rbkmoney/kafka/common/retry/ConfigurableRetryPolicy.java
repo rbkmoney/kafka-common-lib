@@ -1,4 +1,4 @@
-package com.rbkmoney.retry;
+package com.rbkmoney.kafka.common.retry;
 
 import lombok.Getter;
 import org.springframework.classify.BinaryExceptionClassifier;

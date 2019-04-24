@@ -1,7 +1,7 @@
-package com.rbkmoney.serializer;
+package com.rbkmoney.kafka.common.serializer;
 
 
-import com.rbkmoney.exception.KafkaSerializationException;
+import com.rbkmoney.kafka.common.exception.KafkaSerializationException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serializer;
 import org.apache.thrift.TBase;

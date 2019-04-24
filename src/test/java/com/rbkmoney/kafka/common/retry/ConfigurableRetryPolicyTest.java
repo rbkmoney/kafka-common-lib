@@ -1,4 +1,4 @@
-package com.rbkmoney.retry;
+package com.rbkmoney.kafka.common.retry;
 
 import org.junit.Assert;
 import org.junit.Test;

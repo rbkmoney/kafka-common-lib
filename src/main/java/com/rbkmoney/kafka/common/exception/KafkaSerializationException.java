@@ -1,4 +1,4 @@
-package com.rbkmoney.exception;
+package com.rbkmoney.kafka.common.exception;
 
 public class KafkaSerializationException extends RuntimeException {
 

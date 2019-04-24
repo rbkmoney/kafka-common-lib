@@ -1,7 +1,7 @@
-package com.rbkmoney.serializer;
+package com.rbkmoney.kafka.common.serializer;
 
 import com.rbkmoney.damsel.base.Content;
-import com.rbkmoney.deserializer.AbstractDeserializerAdapter;
+import com.rbkmoney.kafka.common.deserializer.AbstractDeserializerAdapter;
 import org.junit.Assert;
 import org.junit.Test;
 

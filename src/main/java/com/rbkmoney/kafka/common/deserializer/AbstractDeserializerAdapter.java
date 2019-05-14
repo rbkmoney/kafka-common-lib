@@ -28,7 +28,7 @@ public abstract class AbstractDeserializerAdapter<T extends TBase> implements De
         try {
             thriftDeserializer.get().deserialize(t, data);
         } catch (Exception e) {
-            log.error("Error when deserialize data: {} ", e);
+            log.error("Error when deserialize data", e);
             throw new KafkaSerializationException(e);
         }
         return t;

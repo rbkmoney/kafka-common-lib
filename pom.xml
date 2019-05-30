@@ -13,7 +13,7 @@
     <packaging>jar</packaging>
 
     <artifactId>kafka-common-lib</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,6 +25,7 @@
         <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
         <woody.thrift.version>1.1.15</woody.thrift.version>
         <damsel.version>1.291-02be09e</damsel.version>
+        <machinegun-proto.version>1.12-ebae56f</machinegun-proto.version>
     </properties>
 
     <dependencyManagement>
@@ -66,12 +67,23 @@
             <version>${damsel.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>machinegun-proto</artifactId>
+            <version>${machinegun-proto.version}</version>
+        </dependency>
 
         <!-- test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.benas</groupId>
+            <artifactId>random-beans</artifactId>
+            <version>3.6.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

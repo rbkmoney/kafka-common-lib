@@ -1,5 +1,4 @@
-package com.rbkmoney.kafka.common.serializer;
-
+package com.rbkmoney.kafka.common.serialization.impl;
 
 import com.rbkmoney.kafka.common.exception.KafkaSerializationException;
 import lombok.extern.slf4j.Slf4j;
@@ -11,20 +10,22 @@ import org.apache.thrift.TSerializer;
 import java.util.Map;
 
 @Slf4j
-public class ThriftSerializer<T extends TBase> implements Serializer<T> {
+public class KafkaSerializer<T extends TBase> implements Serializer<T> {
 
     private final ThreadLocal<TSerializer> thriftSerializer = ThreadLocal.withInitial(TSerializer::new);
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
-        log.warn("ThriftSerializer configure configs: {} isKey: {} is do nothing!", configs, isKey);
+        log.warn("KafkaSerializer configure configs: {} isKey: {} is do nothing!", configs, isKey);
     }
 
     @Override
-    public byte[] serialize(String s, T event) {
+    public byte[] serialize(String topic, T data) {
+        log.debug("Serialize message, topic: {}, data: {}", topic, data);
         try {
-            return thriftSerializer.get().serialize(event);
+            return thriftSerializer.get().serialize(data);
         } catch (TException e) {
+            log.error("Error when serialize data: {} ", data, e);
             throw new KafkaSerializationException(e);
         }
     }

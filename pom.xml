@@ -59,6 +59,14 @@
             <version>${kafka.clients.version}</version>
         </dependency>
 
+        <!-- rbk -->
+        <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>damsel</artifactId>
+            <version>${damsel.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- test -->
         <dependency>
             <groupId>junit</groupId>

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class LogUtil {
 
-    public static String toString(ConsumerRecord consumerRecord) {
+    public static <T extends ConsumerRecord> String toString(T consumerRecord) {
         StringBuilder sb = new StringBuilder("ConsumerRecord{");
         sb.append("topic = ").append(consumerRecord.topic());
         sb.append(", partition = ").append(consumerRecord.partition());
@@ -20,7 +20,7 @@ public class LogUtil {
         return sb.toString();
     }
 
-    public static String toString(List<ConsumerRecord> consumerRecords) {
+    public static <T extends ConsumerRecord> String toString(List<T> consumerRecords) {
         return consumerRecords.stream()
                 .map(LogUtil::toString)
                 .collect(Collectors.joining(", "));

@@ -10,7 +10,7 @@ import org.apache.thrift.TSerializer;
 import java.util.Map;
 
 @Slf4j
-public class KafkaSerializer<T extends TBase> implements Serializer<T> {
+public class ThriftSerializer<T extends TBase> implements Serializer<T> {
 
     private final ThreadLocal<TSerializer> thriftSerializer = ThreadLocal.withInitial(TSerializer::new);
 

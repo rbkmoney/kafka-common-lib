@@ -9,7 +9,7 @@ import org.apache.thrift.TDeserializer;
 import java.util.Map;
 
 @Slf4j
-public abstract class KafkaDeserializer<T extends TBase> implements Deserializer<T> {
+public abstract class AbstractThriftDeserializer<T extends TBase> implements Deserializer<T> {
 
     protected final ThreadLocal<TDeserializer> thriftDeserializer = ThreadLocal.withInitial(TDeserializer::new);
 

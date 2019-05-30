@@ -6,9 +6,9 @@ import org.junit.Test;
 
 public class SerializationTest {
 
-    private final KafkaSerializer<Content> thriftSerializer = new KafkaSerializer<>();
+    private final ThriftSerializer<Content> thriftSerializer = new ThriftSerializer<>();
 
-    private class ContentKafkaDeserializer extends KafkaDeserializer<Content> {
+    private class ContentDeserializer extends AbstractThriftDeserializer<Content> {
 
         @Override
         public Content deserialize(String s, byte[] bytes) {
@@ -24,7 +24,7 @@ public class SerializationTest {
 
         byte[] bytes = thriftSerializer.serialize("poh", content);
 
-        ContentKafkaDeserializer abstractDeserializerAdapter = new ContentKafkaDeserializer();
+        ContentDeserializer abstractDeserializerAdapter = new ContentDeserializer();
 
         Content pohContent = abstractDeserializerAdapter.deserialize("poh", bytes);
 

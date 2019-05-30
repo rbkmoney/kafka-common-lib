@@ -1,5 +1,4 @@
-package com.rbkmoney.kafka.common.deserializer;
-
+package com.rbkmoney.kafka.common.serialization;
 
 import com.rbkmoney.kafka.common.exception.KafkaSerializationException;
 import lombok.extern.slf4j.Slf4j;
@@ -10,13 +9,13 @@ import org.apache.thrift.TDeserializer;
 import java.util.Map;
 
 @Slf4j
-public abstract class AbstractDeserializerAdapter<T extends TBase> implements Deserializer<T> {
+public abstract class AbstractThriftDeserializer<T extends TBase> implements Deserializer<T> {
 
     protected final ThreadLocal<TDeserializer> thriftDeserializer = ThreadLocal.withInitial(TDeserializer::new);
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
-        log.warn("ThriftSerializer configure configs: {} isKey: {} is do nothing!", configs, isKey);
+        log.warn("AbstractThriftDeserializer configure configs: {} isKey: {} is do nothing!", configs, isKey);
     }
 
     @Override

@@ -11,7 +11,9 @@ public class ConfigurableRetryPolicyTest {
     @Test
     public void infiniteRetryPolicyTest() {
         ConfigurableRetryPolicy configurableRetryPolicy = new ConfigurableRetryPolicy(-1,
-                new HashMap<Class<? extends Throwable>, Boolean>() {{ put(IllegalAccessException.class, true); }});
+                new HashMap<Class<? extends Throwable>, Boolean>() {{
+                    put(IllegalAccessException.class, true);
+                }});
 
         Assert.assertEquals(-1, configurableRetryPolicy.getMaxAttempts());
 
@@ -28,7 +30,9 @@ public class ConfigurableRetryPolicyTest {
     @Test
     public void finiteRetryPolicyTest() {
         ConfigurableRetryPolicy configurableRetryPolicy = new ConfigurableRetryPolicy(2,
-                new HashMap<Class<? extends Throwable>, Boolean>() {{ put(IllegalAccessException.class, true); }});
+                new HashMap<Class<? extends Throwable>, Boolean>() {{
+                    put(IllegalAccessException.class, true);
+                }});
 
         Assert.assertEquals(2, configurableRetryPolicy.getMaxAttempts());
 

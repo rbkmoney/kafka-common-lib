@@ -1,20 +1,18 @@
-package com.rbkmoney.kafka.common.serializer;
+package com.rbkmoney.kafka.common.serialization;
 
 import com.rbkmoney.damsel.base.Content;
-import com.rbkmoney.kafka.common.deserializer.AbstractDeserializerAdapter;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ThriftSerializerTest {
+public class SerializationTest {
 
-    ThriftSerializer thriftSerializer = new ThriftSerializer();
+    private final ThriftSerializer<Content> thriftSerializer = new ThriftSerializer<>();
 
-    private class AbstractDeserializerAdapterImpl extends AbstractDeserializerAdapter<Content> {
+    private class ContentDeserializer extends AbstractThriftDeserializer<Content> {
 
         @Override
         public Content deserialize(String s, byte[] bytes) {
-            Content content = new Content();
-            return super.deserialize(bytes, content);
+            return super.deserialize(bytes, new Content());
         }
     }
 
@@ -23,13 +21,13 @@ public class ThriftSerializerTest {
         Content content = new Content();
         content.setType("type");
         content.setData("data".getBytes());
+
         byte[] bytes = thriftSerializer.serialize("poh", content);
 
-        AbstractDeserializerAdapterImpl abstractDeserializerAdapter = new AbstractDeserializerAdapterImpl();
+        ContentDeserializer abstractDeserializerAdapter = new ContentDeserializer();
 
         Content pohContent = abstractDeserializerAdapter.deserialize("poh", bytes);
 
         Assert.assertEquals(content, pohContent);
     }
-
 }

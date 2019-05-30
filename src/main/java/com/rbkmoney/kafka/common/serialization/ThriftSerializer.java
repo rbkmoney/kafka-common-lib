@@ -1,5 +1,4 @@
-package com.rbkmoney.kafka.common.serializer;
-
+package com.rbkmoney.kafka.common.serialization;
 
 import com.rbkmoney.kafka.common.exception.KafkaSerializationException;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +20,12 @@ public class ThriftSerializer<T extends TBase> implements Serializer<T> {
     }
 
     @Override
-    public byte[] serialize(String s, T event) {
+    public byte[] serialize(String topic, T data) {
+        log.debug("Serialize message, topic: {}, data: {}", topic, data);
         try {
-            return thriftSerializer.get().serialize(event);
+            return thriftSerializer.get().serialize(data);
         } catch (TException e) {
+            log.error("Error when serialize data: {} ", data, e);
             throw new KafkaSerializationException(e);
         }
     }

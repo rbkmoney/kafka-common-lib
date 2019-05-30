@@ -15,7 +15,7 @@ public abstract class AbstractThriftDeserializer<T extends TBase> implements Des
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
-        log.warn("KafkaDeserializer configure configs: {} isKey: {} is do nothing!", configs, isKey);
+        log.warn("AbstractThriftDeserializer configure configs: {} isKey: {} is do nothing!", configs, isKey);
     }
 
     @Override

@@ -24,7 +24,6 @@ public class LogUtil {
         return consumerRecords.stream()
                 .map(LogUtil::toString)
                 .collect(Collectors.joining(", "));
-
     }
 
 }

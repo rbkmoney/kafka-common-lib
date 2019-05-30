@@ -25,7 +25,6 @@
         <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
         <woody.thrift.version>1.1.15</woody.thrift.version>
         <damsel.version>1.291-02be09e</damsel.version>
-        <machinegun-proto.version>1.12-ebae56f</machinegun-proto.version>
     </properties>
 
     <dependencyManagement>
@@ -60,19 +59,6 @@
             <version>${kafka.clients.version}</version>
         </dependency>
 
-        <!-- rbk -->
-        <dependency>
-            <groupId>com.rbkmoney</groupId>
-            <artifactId>damsel</artifactId>
-            <version>${damsel.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.rbkmoney</groupId>
-            <artifactId>machinegun-proto</artifactId>
-            <version>${machinegun-proto.version}</version>
-        </dependency>
-
         <!-- test -->
         <dependency>
             <groupId>junit</groupId>
@@ -81,9 +67,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>io.github.benas</groupId>
-            <artifactId>random-beans</artifactId>
-            <version>3.6.0</version>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>damsel</artifactId>
+            <version>${damsel.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

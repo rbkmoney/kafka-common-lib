@@ -1,26 +1,33 @@
 package com.rbkmoney.kafka.common.serialization;
 
-import com.rbkmoney.damsel.payment_processing.EventPayload;
-import com.rbkmoney.kafka.common.serialization.impl.PaymentEventPayloadDeserializer;
-import com.rbkmoney.kafka.common.serialization.impl.PaymentEventPayloadSerializer;
+import com.rbkmoney.damsel.base.Content;
+import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Collections;
-
-import static org.junit.Assert.assertEquals;
 
 public class SerializationTest {
 
+    private final KafkaSerializer<Content> thriftSerializer = new KafkaSerializer<>();
+
+    private class ContentKafkaDeserializer extends KafkaDeserializer<Content> {
+
+        @Override
+        public Content deserialize(String s, byte[] bytes) {
+            return super.deserialize(bytes, new Content());
+        }
+    }
+
     @Test
-    public void serializationTest() {
-        EventPayload expectedEventPayload = EventPayload.invoice_changes(Collections.emptyList());
+    public void serializeTest() {
+        Content content = new Content();
+        content.setType("type");
+        content.setData("data".getBytes());
 
-        PaymentEventPayloadSerializer serializer = new PaymentEventPayloadSerializer();
-        byte[] serializeEventPayload = serializer.serialize(expectedEventPayload);
+        byte[] bytes = thriftSerializer.serialize("poh", content);
 
-        PaymentEventPayloadDeserializer deserializer = new PaymentEventPayloadDeserializer();
-        EventPayload actualEventPayload = deserializer.deserialize(serializeEventPayload);
+        ContentKafkaDeserializer abstractDeserializerAdapter = new ContentKafkaDeserializer();
 
-        assertEquals(expectedEventPayload, actualEventPayload);
+        Content pohContent = abstractDeserializerAdapter.deserialize("poh", bytes);
+
+        Assert.assertEquals(content, pohContent);
     }
 }

@@ -1,4 +1,4 @@
-package com.rbkmoney.kafka.common.serialization.impl;
+package com.rbkmoney.kafka.common.serialization;
 
 import com.rbkmoney.kafka.common.exception.KafkaSerializationException;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +23,7 @@ public abstract class KafkaDeserializer<T extends TBase> implements Deserializer
         thriftDeserializer.remove();
     }
 
-    protected T deserialize(String topic, byte[] data, T t) {
-        log.debug("Deserialize message, topic: {}, byteLength: {}", topic, data.length);
+    protected T deserialize(byte[] data, T t) {
         try {
             thriftDeserializer.get().deserialize(t, data);
         } catch (Exception e) {

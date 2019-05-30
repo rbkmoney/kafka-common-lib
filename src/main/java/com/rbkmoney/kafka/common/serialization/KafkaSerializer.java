@@ -1,4 +1,4 @@
-package com.rbkmoney.kafka.common.serialization.impl;
+package com.rbkmoney.kafka.common.serialization;
 
 import com.rbkmoney.kafka.common.exception.KafkaSerializationException;
 import lombok.extern.slf4j.Slf4j;

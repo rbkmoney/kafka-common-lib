@@ -13,7 +13,7 @@
     <packaging>jar</packaging>
 
     <artifactId>kafka-common-lib</artifactId>
-    <version>0.0.9</version>
+    <version>0.1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -49,9 +49,9 @@
             <version>${lombok.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.rbkmoney.woody</groupId>
-            <artifactId>woody-thrift</artifactId>
-            <version>${woody.thrift.version}</version>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>2.2.3.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -60,18 +60,26 @@
         </dependency>
 
         <!-- rbk -->
-
-        <!-- test -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>machinegun-proto</artifactId>
+            <version>1.12-ebae56f</version>
+        </dependency>
+        <dependency>
+            <groupId>com.rbkmoney.woody</groupId>
+            <artifactId>woody-thrift</artifactId>
+            <version>${woody.thrift.version}</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>damsel</artifactId>
             <version>${damsel.version}</version>
+        </dependency>
+        <!-- test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

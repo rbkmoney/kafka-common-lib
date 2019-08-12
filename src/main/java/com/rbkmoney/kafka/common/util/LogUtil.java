@@ -1,6 +1,7 @@
 package com.rbkmoney.kafka.common.util;
 
 import com.rbkmoney.machinegun.eventsink.MachineEvent;
+import com.rbkmoney.machinegun.eventsink.SinkEvent;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 
@@ -30,7 +31,7 @@ public class LogUtil {
                 .collect(Collectors.joining(", "));
     }
 
-    public static String toSummaryString(List<ConsumerRecord<String, MachineEvent>> records) {
+    public static <T> String toSummaryString(List<ConsumerRecord<String, T>> records) {
         if (records.isEmpty()) {
             return "empty";
         }
@@ -48,7 +49,7 @@ public class LogUtil {
         );
     }
 
-    public static String toSummaryString(ConsumerRecords<String, MachineEvent> records) {
+    public static <T> String toSummaryString(ConsumerRecords<String, T> records) {
         if (records.isEmpty()) {
             return "empty";
         }
@@ -62,9 +63,16 @@ public class LogUtil {
         return stringBuilder.toString();
     }
 
-    public static String toSummaryStringWithValues(List<ConsumerRecord<String, MachineEvent>> records) {
+    public static String toSummaryStringWithMachineEventValues(List<ConsumerRecord<String, MachineEvent>> records) {
         String valueKeysString = records.stream().map(ConsumerRecord::value)
                 .map(value -> String.format("'%s.%d'", value.getSourceId(), value.getEventId()))
+                .collect(Collectors.joining(", "));
+        return String.format("%s, values={%s}", toSummaryString(records), valueKeysString);
+    }
+
+    public static String toSummaryStringWithSinkEventValues(List<ConsumerRecord<String, SinkEvent>> records) {
+        String valueKeysString = records.stream().map(ConsumerRecord::value)
+                .map(value -> String.format("'%s.%d'", value.getEvent().getSourceId(), value.getEvent().getEventId()))
                 .collect(Collectors.joining(", "));
         return String.format("%s, values={%s}", toSummaryString(records), valueKeysString);
     }

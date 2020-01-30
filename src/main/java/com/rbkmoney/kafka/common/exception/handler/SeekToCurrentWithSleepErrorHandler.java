@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class SeekToCurrentWithSleepErrorHandler extends SeekToCurrentErrorHandler {
 
+    // must be less than session.timeout.ms (default value: 10s)
     private final Integer sleepTimeSeconds;
 
     public SeekToCurrentWithSleepErrorHandler() {

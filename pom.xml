@@ -16,7 +16,7 @@
     <version>0.1.3</version>
 
     <name>Kafka common lib</name>
-    <description>Java implementation for Woody spec</description>
+    <description>Kafka serializers/deserializers</description>
     <url>https://github.com/rbkmoney/kafka-common-lib</url>
 
     <licenses>

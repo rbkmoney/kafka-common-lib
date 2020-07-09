@@ -45,10 +45,10 @@
         <java.version>8</java.version>
         <lombok.version>1.18.4</lombok.version>
         <kafka.clients.version>2.1.0</kafka.clients.version>
-        <damsel.version>1.278-3abdcb4</damsel.version>
-        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
-        <woody.thrift.version>1.1.15</woody.thrift.version>
-        <damsel.version>1.291-02be09e</damsel.version>
+        <damsel.version>1.431-2f62a8c</damsel.version>
+        <machinegun-proto.version>1.18-d814d69</machinegun-proto.version>
+        <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
+        <woody.thrift.version>[1.1.21,)</woody.thrift.version>
     </properties>
 
     <dependencyManagement>
@@ -87,17 +87,20 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>machinegun-proto</artifactId>
-            <version>1.12-ebae56f</version>
+            <version>${machinegun-proto.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney.woody</groupId>
             <artifactId>woody-thrift</artifactId>
             <version>${woody.thrift.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>damsel</artifactId>
             <version>${damsel.version}</version>
+            <scope>provided</scope>
         </dependency>
         <!-- test -->
         <dependency>

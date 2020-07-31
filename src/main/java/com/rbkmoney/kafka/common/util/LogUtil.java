@@ -31,7 +31,7 @@ public class LogUtil {
                 .collect(Collectors.joining(", "));
     }
 
-    public static <T> String toSummaryString(List<ConsumerRecord<String, T>> records) {
+    public static <K, V> String toSummaryString(List<ConsumerRecord<K, V>> records) {
         if (records.isEmpty()) {
             return "empty";
         }
@@ -49,7 +49,7 @@ public class LogUtil {
         );
     }
 
-    public static <T> String toSummaryString(ConsumerRecords<String, T> records) {
+    public static <K, V> String toSummaryString(ConsumerRecords<K, V> records) {
         if (records.isEmpty()) {
             return "empty";
         }
@@ -63,14 +63,14 @@ public class LogUtil {
         return stringBuilder.toString();
     }
 
-    public static String toSummaryStringWithMachineEventValues(List<ConsumerRecord<String, MachineEvent>> records) {
+    public static <K> String toSummaryStringWithMachineEventValues(List<ConsumerRecord<K, MachineEvent>> records) {
         String valueKeysString = records.stream().map(ConsumerRecord::value)
                 .map(value -> String.format("'%s.%d'", value.getSourceId(), value.getEventId()))
                 .collect(Collectors.joining(", "));
         return String.format("%s, values={%s}", toSummaryString(records), valueKeysString);
     }
 
-    public static String toSummaryStringWithSinkEventValues(List<ConsumerRecord<String, SinkEvent>> records) {
+    public static <K> String toSummaryStringWithSinkEventValues(List<ConsumerRecord<K, SinkEvent>> records) {
         String valueKeysString = records.stream().map(ConsumerRecord::value)
                 .map(value -> String.format("'%s.%d'", value.getEvent().getSourceId(), value.getEvent().getEventId()))
                 .collect(Collectors.joining(", "));

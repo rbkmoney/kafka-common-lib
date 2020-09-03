@@ -39,7 +39,7 @@ public class PreloadListenerImplTest {
         mockConsumer.updateBeginningOffsets(beginningOffsets);
         HashMap<TopicPartition, Long> endOffsets = new HashMap<>();
         endOffsets.put(new TopicPartition(TOPIC, 0), 3L);
-        mockConsumer.addEndOffsets(endOffsets);
+        mockConsumer.updateEndOffsets(endOffsets);
 
         for (int i = 0; i < 4; i++) {
             mockConsumer.schedulePollTask(() -> {
@@ -78,7 +78,7 @@ public class PreloadListenerImplTest {
         }
         HashMap<TopicPartition, Long> endOffsets = new HashMap<>();
         endOffsets.put(new TopicPartition(TOPIC, 0), 3L);
-        mockConsumer.addEndOffsets(endOffsets);
+        mockConsumer.updateEndOffsets(endOffsets);
         return recordsValue;
     }
 }

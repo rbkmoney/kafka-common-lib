@@ -13,7 +13,7 @@
     <packaging>jar</packaging>
 
     <artifactId>kafka-common-lib</artifactId>
-    <version>0.1.5</version>
+    <version>0.1.6</version>
 
     <name>Kafka common lib</name>
     <description>Kafka serializers/deserializers</description>
@@ -44,10 +44,11 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>8</java.version>
         <lombok.version>1.18.4</lombok.version>
-        <kafka.clients.version>2.1.0</kafka.clients.version>
+        <kafka.clients.version>2.6.0</kafka.clients.version>
+        <spring-retry.version>1.3.0</spring-retry.version>
+        <spring-kafka.version>2.3.3.RELEASE</spring-kafka.version>
         <damsel.version>1.431-2f62a8c</damsel.version>
         <machinegun-proto.version>1.18-d814d69</machinegun-proto.version>
-        <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
         <woody.thrift.version>[1.1.21,)</woody.thrift.version>
     </properties>
 
@@ -65,7 +66,7 @@
         <dependency>
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>
-            <version>1.2.4.RELEASE</version>
+            <version>${spring-retry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -75,7 +76,7 @@
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
-            <version>2.2.3.RELEASE</version>
+            <version>${spring-kafka.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -110,26 +111,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.2</version>
-                <configuration>
-                    <destFile>${sonar.jacoco.reportPath}</destFile>
-                    <append>true</append>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

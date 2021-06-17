@@ -36,6 +36,11 @@ public class SeekToCurrentWithSleepBatchErrorHandler extends SeekToCurrentBatchE
         super.handle(thrownException, data, consumer, container);
     }
 
+    @Override
+    public boolean isAckAfterHandle() {
+        return false;
+    }
+
     private void sleepBeforeRetry() {
         try {
             Thread.sleep(TimeUnit.SECONDS.toMillis(sleepTimeSeconds));

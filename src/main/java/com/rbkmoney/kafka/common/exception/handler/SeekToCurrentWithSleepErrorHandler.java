@@ -33,6 +33,11 @@ public class SeekToCurrentWithSleepErrorHandler extends SeekToCurrentErrorHandle
         super.handle(thrownException, records, consumer, container);
     }
 
+    @Override
+    public boolean isAckAfterHandle() {
+        return false;
+    }
+
     private void sleepBeforeRetry() {
         try {
             Thread.sleep(TimeUnit.SECONDS.toMillis((long)this.sleepTimeSeconds));

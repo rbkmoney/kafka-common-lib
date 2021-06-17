@@ -24,6 +24,7 @@ public class SeekToCurrentWithSleepErrorHandler extends SeekToCurrentErrorHandle
 
     public SeekToCurrentWithSleepErrorHandler(int sleepTimeSeconds, int maxFailures) {
         super(new FixedBackOff(0, maxFailures == -1 ? UNLIMITED_ATTEMPTS : (long) maxFailures - 1));
+        super.setAckAfterHandle(false);
         this.sleepTimeSeconds = sleepTimeSeconds;
     }
 

@@ -38,14 +38,25 @@ public class LogUtil {
 
         ConsumerRecord firstRecord = records.get(0);
         ConsumerRecord lastRecord = records.get(records.size() - 1);
-        LongSummaryStatistics keySizeSummary = records.stream().mapToLong(ConsumerRecord::serializedKeySize).summaryStatistics();
-        LongSummaryStatistics valueSizeSummary = records.stream().mapToLong(ConsumerRecord::serializedValueSize).summaryStatistics();
-        return String.format("topic='%s', partition=%d, offset={%d...%d}, createdAt={%s...%s}, keySize={min=%d, max=%d, avg=%s}, valueSize={min=%d, max=%d, avg=%s}",
-                firstRecord.topic(), firstRecord.partition(),
-                firstRecord.offset(), lastRecord.offset(),
-                Instant.ofEpochMilli(firstRecord.timestamp()), Instant.ofEpochMilli(lastRecord.timestamp()),
-                keySizeSummary.getMin(), keySizeSummary.getMax(), keySizeSummary.getAverage(),
-                valueSizeSummary.getMin(), valueSizeSummary.getMax(), valueSizeSummary.getAverage()
+        LongSummaryStatistics keySizeSummary =
+                records.stream().mapToLong(ConsumerRecord::serializedKeySize).summaryStatistics();
+        LongSummaryStatistics valueSizeSummary =
+                records.stream().mapToLong(ConsumerRecord::serializedValueSize).summaryStatistics();
+        return String.format(
+                "topic='%s', partition=%d, offset={%d...%d}, createdAt={%s...%s}, keySize={min=%d, max=%d, avg=%s}, " +
+                "valueSize={min=%d, max=%d, avg=%s}",
+                firstRecord.topic(),
+                firstRecord.partition(),
+                firstRecord.offset(),
+                lastRecord.offset(),
+                Instant.ofEpochMilli(firstRecord.timestamp()),
+                Instant.ofEpochMilli(lastRecord.timestamp()),
+                keySizeSummary.getMin(),
+                keySizeSummary.getMax(),
+                keySizeSummary.getAverage(),
+                valueSizeSummary.getMin(),
+                valueSizeSummary.getMax(),
+                valueSizeSummary.getAverage()
         );
     }
 

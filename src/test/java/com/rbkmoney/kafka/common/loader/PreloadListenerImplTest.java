@@ -17,8 +17,10 @@ public class PreloadListenerImplTest {
     private static final String TOPIC = "the_topic";
     private static final int PARTITION = 0;
     private MockConsumer<String, String> mockConsumer = new MockConsumer<>(OffsetResetStrategy.EARLIEST);
-    private PreloadListenerImpl<String, String> preloadListener = new PreloadListenerImpl<>(3,
-            new ExponentialBackOff(100L, 1.5));
+    private PreloadListenerImpl<String, String> preloadListener = new PreloadListenerImpl<>(
+            3,
+            new ExponentialBackOff(100L, 1.5)
+    );
 
     @Test
     public void preloadToLastOffsetInPartition() {

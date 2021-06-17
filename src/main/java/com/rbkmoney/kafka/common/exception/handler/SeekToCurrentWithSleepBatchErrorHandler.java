@@ -1,6 +1,7 @@
 package com.rbkmoney.kafka.common.exception.handler;
 
 import com.rbkmoney.machinegun.eventsink.MachineEvent;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -13,6 +14,9 @@ import static com.rbkmoney.kafka.common.util.LogUtil.toSummaryString;
 
 @Slf4j
 public class SeekToCurrentWithSleepBatchErrorHandler extends SeekToCurrentBatchErrorHandler {
+
+    @Setter
+    private boolean ackAfterHandle = false;
 
     private final Integer sleepTimeSeconds;
 
@@ -27,13 +31,23 @@ public class SeekToCurrentWithSleepBatchErrorHandler extends SeekToCurrentBatchE
     }
 
     @Override
-    public void handle(Exception thrownException, ConsumerRecords<?, ?> data, Consumer<?, ?> consumer, MessageListenerContainer container) {
+    public void handle(
+            Exception thrownException,
+            ConsumerRecords<?, ?> data,
+            Consumer<?, ?> consumer,
+            MessageListenerContainer container) {
         log.error(String.format("Records commit failed, size=%d, %s", data.count(),
-                toSummaryString((ConsumerRecords<String, MachineEvent>) data)), thrownException);
+                toSummaryString((ConsumerRecords<String, MachineEvent>) data)
+        ), thrownException);
 
         sleepBeforeRetry();
 
         super.handle(thrownException, data, consumer, container);
+    }
+
+    @Override
+    public boolean isAckAfterHandle() {
+        return this.ackAfterHandle;
     }
 
     private void sleepBeforeRetry() {

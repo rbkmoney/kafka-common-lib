@@ -9,7 +9,11 @@ public class KafkaSerializationException extends RuntimeException {
         super(message, cause);
     }
 
-    public KafkaSerializationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public KafkaSerializationException(
+            String message,
+            Throwable cause,
+            boolean enableSuppression,
+            boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

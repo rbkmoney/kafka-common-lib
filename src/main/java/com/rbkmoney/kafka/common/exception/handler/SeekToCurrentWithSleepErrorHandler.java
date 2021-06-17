@@ -18,6 +18,7 @@ public class SeekToCurrentWithSleepErrorHandler extends SeekToCurrentErrorHandle
     private final Integer sleepTimeSeconds;
 
     public SeekToCurrentWithSleepErrorHandler() {
+        super.setAckAfterHandle(false);
         this.sleepTimeSeconds = 5;
     }
 
@@ -35,11 +36,6 @@ public class SeekToCurrentWithSleepErrorHandler extends SeekToCurrentErrorHandle
         log.error("Records commit failed", thrownException);
         this.sleepBeforeRetry();
         super.handle(thrownException, records, consumer, container);
-    }
-
-    @Override
-    public boolean isAckAfterHandle() {
-        return false;
     }
 
     private void sleepBeforeRetry() {

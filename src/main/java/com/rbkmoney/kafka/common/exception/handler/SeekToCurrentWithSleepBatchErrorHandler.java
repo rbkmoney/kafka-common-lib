@@ -1,6 +1,7 @@
 package com.rbkmoney.kafka.common.exception.handler;
 
 import com.rbkmoney.machinegun.eventsink.MachineEvent;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -13,6 +14,9 @@ import static com.rbkmoney.kafka.common.util.LogUtil.toSummaryString;
 
 @Slf4j
 public class SeekToCurrentWithSleepBatchErrorHandler extends SeekToCurrentBatchErrorHandler {
+
+    @Setter
+    private boolean ackAfterHandle = false;
 
     private final Integer sleepTimeSeconds;
 
@@ -43,7 +47,7 @@ public class SeekToCurrentWithSleepBatchErrorHandler extends SeekToCurrentBatchE
 
     @Override
     public boolean isAckAfterHandle() {
-        return false;
+        return this.ackAfterHandle;
     }
 
     private void sleepBeforeRetry() {

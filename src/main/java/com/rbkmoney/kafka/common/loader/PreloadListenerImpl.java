@@ -29,7 +29,11 @@ public class PreloadListenerImpl<K, T> implements PreloadListener<K, T> {
     }
 
     @Override
-    public void preloadToLastOffsetInPartition(Consumer<K, T> consumer, String topic, int partition, java.util.function.Consumer<T> handleConsumer) {
+    public void preloadToLastOffsetInPartition(
+            Consumer<K, T> consumer,
+            String topic,
+            int partition,
+            java.util.function.Consumer<T> handleConsumer) {
         TopicPartition topicPartition = new TopicPartition(topic, partition);
         List<TopicPartition> topics = Collections.singletonList(topicPartition);
         consumer.assign(topics);

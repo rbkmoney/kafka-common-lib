@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.springframework.classify.BinaryExceptionClassifier;
 import org.springframework.retry.RetryContext;
 import org.springframework.retry.RetryPolicy;
-import org.springframework.retry.context.RetryContextSupport;
 import org.springframework.util.ClassUtils;
 
 import java.util.Map;
@@ -20,8 +19,9 @@ public class ConfigurableRetryPolicy implements RetryPolicy {
         this(maxAttempts, retryableExceptions, false, false);
     }
 
-    public ConfigurableRetryPolicy(int maxAttempts, Map<Class<? extends Throwable>, Boolean> retryableExceptions,
-                                   boolean traverseCauses, boolean defaultValue) {
+    public ConfigurableRetryPolicy(
+            int maxAttempts, Map<Class<? extends Throwable>, Boolean> retryableExceptions,
+            boolean traverseCauses, boolean defaultValue) {
         this.maxAttempts = maxAttempts;
         this.retryableClassifier = new BinaryExceptionClassifier(retryableExceptions, defaultValue);
         this.retryableClassifier.setTraverseCauses(traverseCauses);
@@ -51,12 +51,6 @@ public class ConfigurableRetryPolicy implements RetryPolicy {
         ((SimpleRetryContext) context).registerThrowable(throwable);
     }
 
-    private static class SimpleRetryContext extends RetryContextSupport {
-        public SimpleRetryContext(RetryContext parent) {
-            super(parent);
-        }
-    }
-
     private boolean retryForException(Throwable ex) {
         return retryableClassifier.classify(ex);
     }
@@ -66,3 +60,4 @@ public class ConfigurableRetryPolicy implements RetryPolicy {
         return ClassUtils.getShortName(getClass()) + "[maxAttempts=" + maxAttempts + "]";
     }
 }
+

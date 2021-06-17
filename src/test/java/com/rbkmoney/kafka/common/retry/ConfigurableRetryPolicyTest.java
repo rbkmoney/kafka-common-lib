@@ -5,15 +5,19 @@ import org.junit.Test;
 import org.springframework.retry.context.RetryContextSupport;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ConfigurableRetryPolicyTest {
 
     @Test
     public void infiniteRetryPolicyTest() {
-        ConfigurableRetryPolicy configurableRetryPolicy = new ConfigurableRetryPolicy(-1,
-                new HashMap<Class<? extends Throwable>, Boolean>() {{
-                    put(IllegalAccessException.class, true);
-                }});
+        Map<Class<? extends Throwable>, Boolean> errorClassifierMap = new HashMap<>();
+        errorClassifierMap.put(IllegalAccessException.class, true);
+
+        ConfigurableRetryPolicy configurableRetryPolicy = new ConfigurableRetryPolicy(
+                -1,
+                errorClassifierMap
+        );
 
         Assert.assertEquals(-1, configurableRetryPolicy.getMaxAttempts());
 
@@ -29,10 +33,12 @@ public class ConfigurableRetryPolicyTest {
 
     @Test
     public void finiteRetryPolicyTest() {
-        ConfigurableRetryPolicy configurableRetryPolicy = new ConfigurableRetryPolicy(2,
-                new HashMap<Class<? extends Throwable>, Boolean>() {{
-                    put(IllegalAccessException.class, true);
-                }});
+        Map<Class<? extends Throwable>, Boolean> errorClassifierMap = new HashMap<>();
+        errorClassifierMap.put(IllegalAccessException.class, true);
+        ConfigurableRetryPolicy configurableRetryPolicy = new ConfigurableRetryPolicy(
+                2,
+                errorClassifierMap
+        );
 
         Assert.assertEquals(2, configurableRetryPolicy.getMaxAttempts());
 
@@ -67,10 +73,11 @@ public class ConfigurableRetryPolicyTest {
         retryContextWithEndedRetryCount.registerThrowable(new IllegalAccessException());
         retryContextWithEndedRetryCount.registerThrowable(new IllegalAccessException());
         retryContextWithEndedRetryCount.registerThrowable(new IllegalAccessException());
-        if (infinite)
+        if (infinite) {
             Assert.assertTrue(configurableRetryPolicy.canRetry(retryContextWithEndedRetryCount));
-        else
+        } else {
             Assert.assertFalse(configurableRetryPolicy.canRetry(retryContextWithEndedRetryCount));
+        }
     }
 
 }

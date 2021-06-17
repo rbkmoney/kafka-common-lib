@@ -27,9 +27,14 @@ public class SeekToCurrentWithSleepBatchErrorHandler extends SeekToCurrentBatchE
     }
 
     @Override
-    public void handle(Exception thrownException, ConsumerRecords<?, ?> data, Consumer<?, ?> consumer, MessageListenerContainer container) {
+    public void handle(
+            Exception thrownException,
+            ConsumerRecords<?, ?> data,
+            Consumer<?, ?> consumer,
+            MessageListenerContainer container) {
         log.error(String.format("Records commit failed, size=%d, %s", data.count(),
-                toSummaryString((ConsumerRecords<String, MachineEvent>) data)), thrownException);
+                toSummaryString((ConsumerRecords<String, MachineEvent>) data)
+        ), thrownException);
 
         sleepBeforeRetry();
 

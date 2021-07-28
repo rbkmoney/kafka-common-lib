@@ -16,10 +16,14 @@ public abstract class AbstractThriftDeserializer<T extends TBase> implements Des
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
-        Map<String, ?> filtered = configs.entrySet().stream()
+        Map<String, ?> filtered = filterSslProperties(configs);
+        log.warn("AbstractThriftDeserializer configure configs: {} isKey: {} is do nothing!", filtered, isKey);
+    }
+
+    public static Map<String, ?> filterSslProperties(Map<String, ?> configs) {
+        return configs.entrySet().stream()
                 .filter(entry -> !entry.getKey().contains("ssl"))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        log.warn("AbstractThriftDeserializer configure configs: {} isKey: {} is do nothing!", filtered, isKey);
     }
 
     @Override

@@ -44,7 +44,7 @@ public class LogUtil {
                 records.stream().mapToLong(ConsumerRecord::serializedValueSize).summaryStatistics();
         return String.format(
                 "topic='%s', partition=%d, offset={%d...%d}, createdAt={%s...%s}, keySize={min=%d, max=%d, avg=%s}, " +
-                "valueSize={min=%d, max=%d, avg=%s}",
+                        "valueSize={min=%d, max=%d, avg=%s}",
                 firstRecord.topic(),
                 firstRecord.partition(),
                 firstRecord.offset(),

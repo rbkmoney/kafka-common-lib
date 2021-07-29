@@ -7,6 +7,7 @@ import org.apache.thrift.TBase;
 import org.apache.thrift.TDeserializer;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 public abstract class AbstractThriftDeserializer<T extends TBase> implements Deserializer<T> {
@@ -15,7 +16,14 @@ public abstract class AbstractThriftDeserializer<T extends TBase> implements Des
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
-        log.warn("AbstractThriftDeserializer configure configs: {} isKey: {} is do nothing!", configs, isKey);
+        Map<String, ?> filtered = filterSslProperties(configs);
+        log.warn("AbstractThriftDeserializer configure configs: {} isKey: {} is do nothing!", filtered, isKey);
+    }
+
+    public static Map<String, ?> filterSslProperties(Map<String, ?> configs) {
+        return configs.entrySet().stream()
+                .filter(entry -> !entry.getKey().contains("ssl"))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     @Override

@@ -9,6 +9,8 @@ import org.apache.thrift.TSerializer;
 
 import java.util.Map;
 
+import static com.rbkmoney.kafka.common.serialization.AbstractThriftDeserializer.filterSslProperties;
+
 @Slf4j
 public class ThriftSerializer<T extends TBase> implements Serializer<T> {
 
@@ -16,7 +18,8 @@ public class ThriftSerializer<T extends TBase> implements Serializer<T> {
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
-        log.warn("ThriftSerializer configure configs: {} isKey: {} is do nothing!", configs, isKey);
+        Map<String, ?> filtered = filterSslProperties(configs);
+        log.warn("ThriftSerializer configure configs: {} isKey: {} is do nothing!", filtered, isKey);
     }
 
     @Override
